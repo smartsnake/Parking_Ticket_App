@@ -20,9 +20,11 @@ CSCE 3513 Group Project
     ```
 4. Install dependacies
     ```bash
-    npm install #If this doesn't would you may have a problem with you Node installatio
-    npm install -g expo-cli
+    npm install #If this doesn't would you may have a problem with you Node installation
+    npm install -g expo-cli #Needed for the expo app
     ```
+
+    It is ok if you receive 'warnings' during the installation as long as the dependacies install correctly.
 
 ## Running
 1. Start react native service
@@ -37,7 +39,9 @@ CSCE 3513 Group Project
 You're going to have to create an account.
 
 3. Open the Camera app on your phone and scan the QR code.
+It may take sometime to compile.
 
 4. Enjoy real time app development.
+If a 'Accessing view manager...' error comes up, you may Dismiss this message.
 
 
