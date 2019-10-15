@@ -42,6 +42,7 @@ You're going to have to create an account.
 It may take sometime to compile.
 
 4. Enjoy real time app development.
-If a 'Accessing view manager...' error comes up, you may Dismiss this message.
+
+    If a 'Accessing view manager...' error comes up, you may Dismiss this message.
 
 
