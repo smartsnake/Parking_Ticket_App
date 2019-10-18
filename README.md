@@ -45,4 +45,39 @@ It may take sometime to compile.
 
     If a 'Accessing view manager...' error comes up, you may Dismiss this message.
 
+## Structure
 
+PARKING_TICKET_APP/
+├── App.js
+│
+├── navigation/
+│   ├── AppNavigation.js
+│   └── MainTabNavigator.js
+└── screens/
+    ├── HomeScreen.js
+    ├── MapScreen.js
+    └── SettingsScreen.js
+
+
+The 'App.js' file is the main of this project. Running the 'npm start' indirectly starts 
+
+a modified Node.js server with the expo configs.
+
+
+The only folders that we need to focus on is the 'navigation' and 'screens' folder.
+
+1. In the 'navigation/' folder
+    * AppNavigation.js - Takes the MainTabNavigator.js and makes it into a switch navigator
+    (Makes it look and function better)
+
+    * MainTabNavigator.js - This creates the tab navigation buttons at the bottom of the screen,
+    it imports all screens options we want to switch to.
+
+2. In the 'screens/' folder
+    * HomeScreen.js - The first screen you see when opening the app, Probably should change this
+    to a login screen or something.
+
+    * MapScreen.js - Uses the 'react-native-maps' module to access Google Maps and Apple Maps API's. 
+    This screen displays a map over the University of Arkansas currently.
+
+    * SettingsScreen.js - This screen was auto generated, should be changed to something useful later.

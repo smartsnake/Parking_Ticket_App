@@ -4,7 +4,7 @@ import { createStackNavigator, createBottomTabNavigator } from 'react-navigation
 
 import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
-import MapScreen from '../screens/LinksScreen';
+import MapScreen from '../screens/MapScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const config = Platform.select({
