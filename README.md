@@ -52,6 +52,7 @@ PARKING_TICKET_APP/
 ├── App.js
 
 │
+
 ├── navigation/
 
 │   ├── AppNavigation.js
