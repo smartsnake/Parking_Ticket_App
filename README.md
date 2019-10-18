@@ -48,23 +48,14 @@ It may take sometime to compile.
 ## Structure
 
 PARKING_TICKET_APP/
-
 ├── App.js
-
 │
-
 ├── navigation/
-
 │   ├── AppNavigation.js
-
 │   └── MainTabNavigator.js
-
 └── screens/
-
     ├── HomeScreen.js
-
     ├── MapScreen.js
-
     └── SettingsScreen.js
 
 
