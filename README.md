@@ -5,7 +5,7 @@ CSCE 3513 Group Project
 
 ## Installation
 
-1. First you need to download and install [Node.js](https://nodejs.org/en/download/)
+1. First you need to download and install [Node.js](https://nodejs.org/en/download/) and [Git](https://git-scm.com/downloads)
 
 2. Next clone this repo. 
 
