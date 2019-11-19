@@ -25,43 +25,10 @@ export default function HomeScreen() {
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
-
         <View style={styles.getStartedContainer}>
-          {/* YOU CAN PASS IN A FUNCTION USING TAG, THIS 
-              FUNCTION IS DEFINED LATER BELOW */}
-          <DevelopmentModeNotice />
-
           {/* TO USE TEXT, MUST PASS IN TEXT TAG */}
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
-        </View>
-
-        <View style={styles.helpContainer}>
-          { /* TOUCHABLEOPACITY dims upon press */ }
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
-        </View>
+          <Text style={styles.welcomeText}>Welcome to the UARK Parking Ticket Application</Text>
+        </View> 
       </ScrollView>
 
       <View style={styles.tabBarInfoContainer}>
@@ -86,6 +53,7 @@ HomeScreen.navigationOptions = {
 };
 
 //Will most likely remove this function
+//Can use these functions in return by the usage of tag
 function DevelopmentModeNotice() {
   if (__DEV__) {
     const learnMoreButton = (
@@ -151,6 +119,7 @@ const styles = StyleSheet.create({
   },
   getStartedContainer: {
     alignItems: 'center',
+    top: '100%',
     marginHorizontal: 50,
   },
   homeScreenFilename: {
@@ -164,11 +133,12 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: 4,
   },
-  getStartedText: {
+  welcomeText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
+    top: '0%'
   },
   tabBarInfoContainer: {
     position: 'absolute',

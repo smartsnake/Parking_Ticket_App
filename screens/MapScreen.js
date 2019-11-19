@@ -5,13 +5,16 @@ import {
   View,
   Text,
   ScrollView,
-  Button
+  Button,
+  Alert
 } from 'react-native';
+
 import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
 
 export default class MapScreen extends Component {
-  
+
+
   //onRegionChange tracks map position as the user scrolls and zooms
   onRegionChange(region) {
     this.setState({ region });
@@ -39,24 +42,17 @@ export default class MapScreen extends Component {
         provider={"google"}
       > 
        {/* Default markers already put in place upon launch */ }
-        <Marker coordinate={{ latitude: 52.0, longitude: 18.2 }} />  
-        <Marker coordinate={{ latitude: 52.4, longitude: 18.7 }} />  
-        <Marker coordinate={{ latitude: 52.1, longitude: 18.4 }} />  
-        <Marker coordinate={{ latitude: 52.6, longitude: 18.3 }} />  
-        <Marker coordinate={{ latitude: 51.6, longitude: 18.0 }} />  
-        <Marker coordinate={{ latitude: 53.1, longitude: 18.8 }} />  
-        <Marker coordinate={{ latitude: 52.9, longitude: 19.4 }} />  
-        <Marker coordinate={{ latitude: 52.2, longitude: 21 }} />  
+        <Marker coordinate={{ latitude: 52.0, longitude: 18.2 }} />   
       </MapView>
       {/* Sibling View for button */}
       <View 
         style={{
           position: 'absolute',
-          top: '50%',
+          top: '2.5%',
           alignSelf: 'flex-end'
         }}
       >
-        <Button title="+"/>
+        <Button title="Button" color="#f194ff" backgroundColor="#0000FF"/>
       </View>
     </View>
     );
