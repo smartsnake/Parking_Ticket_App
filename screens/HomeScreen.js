@@ -11,9 +11,16 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
+import MapScreen from './MapScreen';
 
 export default function HomeScreen() {
+  //Right now, this is returning the default homescreen. 
+  //We can remove most of this or completely remove homescreen, right now,
+  //Keep just to view template for working with react front end
   return (
+    //View tag creates a "view" which can be nested inside other views
+
+    //This is the parent view container
     <View style={styles.container}>
       <ScrollView
         style={styles.container}
@@ -30,8 +37,11 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.getStartedContainer}>
+          {/* YOU CAN PASS IN A FUNCTION USING TAG, THIS 
+              FUNCTION IS DEFINED LATER BELOW */}
           <DevelopmentModeNotice />
 
+          {/* TO USE TEXT, MUST PASS IN TEXT TAG */}
           <Text style={styles.getStartedText}>Get started by opening</Text>
 
           <View
@@ -45,6 +55,7 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.helpContainer}>
+          { /* TOUCHABLEOPACITY dims upon press */ }
           <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
             <Text style={styles.helpLinkText}>
               Help, it didn’t automatically reload!
@@ -67,12 +78,14 @@ export default function HomeScreen() {
       </View>
     </View>
   );
+  
 }
 
 HomeScreen.navigationOptions = {
   header: null,
 };
 
+//Will most likely remove this function
 function DevelopmentModeNotice() {
   if (__DEV__) {
     const learnMoreButton = (
@@ -108,6 +121,7 @@ function handleHelpPress() {
   );
 }
 
+//This is how styling is handled within React
 const styles = StyleSheet.create({
   container: {
     flex: 1,

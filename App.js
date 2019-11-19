@@ -20,6 +20,7 @@ export default function App(props) {
     );
   } else {
     return (
+      //Loads the AppNavigator (which contains MainTabNavigator)
       <View style={styles.container}>
         {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
         <AppNavigator />
