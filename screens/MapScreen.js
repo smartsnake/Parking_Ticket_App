@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Platform,
   StyleSheet,
   View,
   Text,
   ScrollView,
+  ActivityIndicator,
   Button,
   Alert
 } from 'react-native';
@@ -14,37 +15,61 @@ import { Marker } from 'react-native-maps';
 
 export default class MapScreen extends Component {
 
-
-  //onRegionChange tracks map position as the user scrolls and zooms
   onRegionChange(region) {
     this.setState({ region });
   }
 
-  //This generates the UI itself, creating a MapView with a region centered 
-  //around the latitude and longitude coordinates
+  constructor(props) {
+    super(props);
+    this.state = { isLoading: true };
+  }
+
+  componentDidMount() {
+    return fetch("http://maincomputer.myvnc.com:8081/points/")
+      .then(response => response.json())
+      .then(responseJson => {
+        //alert(responseJson); //test to show I am fetching the right information, still don't know how to get lat, long from responseJson to put into markers
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   render() {
-    return(
-    <View style={{ flex: 1 }}>
-      <MapView  
-        //Initial Region, thinking about changing to initialRegion
-        region={{  
-          latitude: 52.5,  
-          longitude: 19.2,  
-          //Delta represents zoom
-          latitudeDelta: 8.5,  
-          longitudeDelta: 8.5  
-        }}  
-        style={{ 
-          width: 400, height: 800,
-          flex: 1
-        }}  
+    if (this.state.isLoading) {
+      return (
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
+    return (
+      <View style={{ flex: 1 }}>
+      <MapView
+        region={{
+          latitude: 36.05,
+          longitude: -94.172,
+          latitudeDelta: 0.20,
+          longitudeDelta: 0.20
+        }}
+        style={{ width: 400, height: 800 }}
         showsUserLocation={true}
         provider={"google"}
-      > 
-       {/* Default markers already put in place upon launch */ }
-        <Marker coordinate={{ latitude: 52.0, longitude: 18.2 }} />   
+      >
+        {this.state.dataSource.map(obj => {
+          return (
+            <Marker
+              key={obj}
+              coordinate={{ latitude: obj.lat, longitude: obj.lon }}
+            />
+          );
+        })}
       </MapView>
-      {/* Sibling View for button */}
       <View 
         style={{
           position: 'absolute',
@@ -54,19 +79,19 @@ export default class MapScreen extends Component {
       >
         <Button title="Button" color="#f194ff" backgroundColor="#0000FF"/>
       </View>
-    </View>
+      </View>
     );
-    }
+  }
 }
 
 MapScreen.navigationOptions = {
-  title: 'Maps',
+  title: "Maps"
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff',
-  },
+    backgroundColor: "#fff"
+  }
 });
