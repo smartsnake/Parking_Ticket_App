@@ -28,21 +28,28 @@ export default class MapScreen extends Component {
       <MapView  
         //Initial Region, thinking about changing to initialRegion
         region={{  
-          latitude: 52.5,  
-          longitude: 19.2,  
+          latitude: 36.0654,  
+          longitude: -94.1723,  
           //Delta represents zoom
-          latitudeDelta: 8.5,  
-          longitudeDelta: 8.5  
+          latitudeDelta: 0.01,  
+          longitudeDelta: 0.01  
         }}  
         style={{ 
           width: 400, height: 800,
           flex: 1
         }}  
-        showsUserLocation={true}
+        showsUserLocation={true} //need to add key in info.plist (idk what this is)
+        followsUserLocation={true}
         provider={"google"}
+        mapType="standard" //other values: hybrid, terrain (android only), standard, mutedStandard(ios 11+ only)
       > 
        {/* Default markers already put in place upon launch */ }
-        <Marker coordinate={{ latitude: 52.0, longitude: 18.2 }} />   
+        <Marker coordinate={{ latitude: 36.0822, longitude: -94.2 }} /> 
+        <Marker coordinate={{ latitude: 36.0654, longitude: -94.1723}} /> 
+       {/* Test for clickable markers */}
+       <MapView.Marker 
+        coordinate={{ latitude:  36.07, longitude: -94.1655 }}
+       />
       </MapView>
       {/* Sibling View for button */}
       <View 
