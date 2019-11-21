@@ -47,10 +47,10 @@ export default class MapScreen extends Component {
     return (
       <MapView
         region={{
-          latitude: 52.5,
-          longitude: 19.2,
-          latitudeDelta: 8.5,
-          longitudeDelta: 8.5
+          latitude: 36.05,
+          longitude: -94.172,
+          latitudeDelta: 0.20,
+          longitudeDelta: 0.20
         }}
         style={{ width: 400, height: 800 }}
         showsUserLocation={true}
@@ -64,15 +64,6 @@ export default class MapScreen extends Component {
             />
           );
         })}
-
-        {/* <Marker coordinate={{ latitude: 52.0, longitude: 18.2 }} />
-        <Marker coordinate={{ latitude: 52.4, longitude: 18.7 }} />
-        <Marker coordinate={{ latitude: 52.1, longitude: 18.4 }} />
-        <Marker coordinate={{ latitude: 52.6, longitude: 18.3 }} />
-        <Marker coordinate={{ latitude: 51.6, longitude: 18.0 }} />
-        <Marker coordinate={{ latitude: 53.1, longitude: 18.8 }} />
-        <Marker coordinate={{ latitude: 52.9, longitude: 19.4 }} />
-        <Marker coordinate={{ latitude: 52.2, longitude: 21 }} /> */}
       </MapView>
     );
     // return (
