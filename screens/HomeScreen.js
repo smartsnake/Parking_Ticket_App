@@ -11,68 +11,36 @@ import {
 } from 'react-native';
 
 import { MonoText } from '../components/StyledText';
+import MapScreen from './MapScreen';
 
 export default function HomeScreen() {
+  //Right now, this is returning the default homescreen. 
+  //We can remove most of this or completely remove homescreen, right now,
+  //Keep just to view template for working with react front end
   return (
+    //View tag creates a "view" which can be nested inside other views
+
+    //This is the parent view container
     <View style={styles.container}>
       <ScrollView
         style={styles.container}
         contentContainerStyle={styles.contentContainer}>
-        <View style={styles.welcomeContainer}>
-          <Image
-            source={
-              __DEV__
-                ? require('../assets/images/robot-dev.png')
-                : require('../assets/images/robot-prod.png')
-            }
-            style={styles.welcomeImage}
-          />
-        </View>
-
         <View style={styles.getStartedContainer}>
-          <DevelopmentModeNotice />
-
-          <Text style={styles.getStartedText}>Get started by opening</Text>
-
-          <View
-            style={[styles.codeHighlightContainer, styles.homeScreenFilename]}>
-            <MonoText>screens/HomeScreen.js</MonoText>
-          </View>
-
-          <Text style={styles.getStartedText}>
-            Change this text and your app will automatically reload.
-          </Text>
-        </View>
-
-        <View style={styles.helpContainer}>
-          <TouchableOpacity onPress={handleHelpPress} style={styles.helpLink}>
-            <Text style={styles.helpLinkText}>
-              Help, it didn’t automatically reload!
-            </Text>
-          </TouchableOpacity>
-        </View>
+          {/* TO USE TEXT, MUST PASS IN TEXT TAG */}
+          <Text style={styles.welcomeText}>Welcome to the UARK Parking Ticket Application</Text>
+        </View> 
       </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View>
     </View>
   );
+  
 }
 
 HomeScreen.navigationOptions = {
   header: null,
 };
 
+//Will most likely remove this function
+//Can use these functions in return by the usage of tag
 function DevelopmentModeNotice() {
   if (__DEV__) {
     const learnMoreButton = (
@@ -108,6 +76,7 @@ function handleHelpPress() {
   );
 }
 
+//This is how styling is handled within React
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -137,6 +106,7 @@ const styles = StyleSheet.create({
   },
   getStartedContainer: {
     alignItems: 'center',
+    top: '25%',
     marginHorizontal: 50,
   },
   homeScreenFilename: {
@@ -150,11 +120,12 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     paddingHorizontal: 4,
   },
-  getStartedText: {
+  welcomeText: {
     fontSize: 17,
     color: 'rgba(96,100,109, 1)',
     lineHeight: 24,
     textAlign: 'center',
+    top: '0%'
   },
   tabBarInfoContainer: {
     position: 'absolute',

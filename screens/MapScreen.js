@@ -5,12 +5,16 @@ import {
   View,
   Text,
   ScrollView,
-  ActivityIndicator
-} from "react-native";
-import MapView from "react-native-map-clustering";
-import { Marker } from "react-native-maps";
+  ActivityIndicator,
+  Button,
+  Alert
+} from 'react-native';
+
+import MapView from 'react-native-map-clustering';
+import { Marker } from 'react-native-maps';
 
 export default class MapScreen extends Component {
+
   onRegionChange(region) {
     this.setState({ region });
   }
@@ -45,6 +49,7 @@ export default class MapScreen extends Component {
     }
 
     return (
+      <View style={{ flex: 1 }}>
       <MapView
         region={{
           latitude: 36.05,
@@ -65,26 +70,17 @@ export default class MapScreen extends Component {
           );
         })}
       </MapView>
+      <View 
+        style={{
+          position: 'absolute',
+          top: '2.5%',
+          alignSelf: 'flex-end'
+        }}
+      >
+        <Button title="Button" color="#f194ff" backgroundColor="#0000FF"/>
+      </View>
+      </View>
     );
-    // return (
-    //   // <MapView
-    //   //   region={{
-    //   //     latitude: 37.78825,
-    //   //     longitude: -122.4324,
-    //   //     latitudeDelta: 0.0922,
-    //   //     longitudeDelta: 0.0421,
-    //   //   }}
-    //   //   onRegionChange={this.onRegionChange}
-    //   // />
-    //   <MapView style={{flex: 1}}
-    //   region={{latitude: 36.0694066,
-    //           longitude: -94.1748312,
-    //           latitudeDelta: 0.0922,
-    //           longitudeDelta: 0.0421
-    //         }}
-    //   showsUserLocation={true}
-    //   />
-    // );
   }
 }
 
