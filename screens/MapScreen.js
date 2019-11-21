@@ -24,7 +24,7 @@ export default class MapScreen extends Component {
     return fetch("http://maincomputer.myvnc.com:8081/points/")
       .then(response => response.json())
       .then(responseJson => {
-        alert(responseJson); //test to show I am fetching the right information, still don't know how to get lat, long from responseJson to put into markers
+        //alert(responseJson); //test to show I am fetching the right information, still don't know how to get lat, long from responseJson to put into markers
         this.setState({
           isLoading: false,
           dataSource: responseJson
@@ -56,14 +56,23 @@ export default class MapScreen extends Component {
         showsUserLocation={true}
         provider={"google"}
       >
-        <Marker coordinate={{ latitude: 52.0, longitude: 18.2 }} />
+        {this.state.dataSource.map(obj => {
+          return (
+            <Marker
+              key={obj}
+              coordinate={{ latitude: obj.lat, longitude: obj.lon }}
+            />
+          );
+        })}
+
+        {/* <Marker coordinate={{ latitude: 52.0, longitude: 18.2 }} />
         <Marker coordinate={{ latitude: 52.4, longitude: 18.7 }} />
         <Marker coordinate={{ latitude: 52.1, longitude: 18.4 }} />
         <Marker coordinate={{ latitude: 52.6, longitude: 18.3 }} />
         <Marker coordinate={{ latitude: 51.6, longitude: 18.0 }} />
         <Marker coordinate={{ latitude: 53.1, longitude: 18.8 }} />
         <Marker coordinate={{ latitude: 52.9, longitude: 19.4 }} />
-        <Marker coordinate={{ latitude: 52.2, longitude: 21 }} />
+        <Marker coordinate={{ latitude: 52.2, longitude: 21 }} /> */}
       </MapView>
     );
     // return (
