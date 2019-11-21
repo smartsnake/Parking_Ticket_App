@@ -30,19 +30,6 @@ export default function HomeScreen() {
           <Text style={styles.welcomeText}>Welcome to the UARK Parking Ticket Application</Text>
         </View> 
       </ScrollView>
-
-      <View style={styles.tabBarInfoContainer}>
-        <Text style={styles.tabBarInfoText}>
-          This is a tab bar. You can edit it in:
-        </Text>
-
-        <View
-          style={[styles.codeHighlightContainer, styles.navigationFilename]}>
-          <MonoText style={styles.codeHighlightText}>
-            navigation/MainTabNavigator.js
-          </MonoText>
-        </View>
-      </View>
     </View>
   );
   
@@ -119,7 +106,7 @@ const styles = StyleSheet.create({
   },
   getStartedContainer: {
     alignItems: 'center',
-    top: '100%',
+    top: '25%',
     marginHorizontal: 50,
   },
   homeScreenFilename: {
