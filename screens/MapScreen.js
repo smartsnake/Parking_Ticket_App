@@ -6,14 +6,23 @@ import {
   Text,
   ScrollView,
   Button,
-  Alert
+  Alert,
+  Modal
 } from 'react-native';
 
 import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default class MapScreen extends Component {
 
+  state = {
+    modalVisible: false,
+  };
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
 
   //onRegionChange tracks map position as the user scrolls and zooms
   onRegionChange(region) {
@@ -47,9 +56,7 @@ export default class MapScreen extends Component {
         <Marker coordinate={{ latitude: 36.0822, longitude: -94.2 }} /> 
         <Marker coordinate={{ latitude: 36.0654, longitude: -94.1723}} /> 
        {/* Test for clickable markers */}
-       <MapView.Marker 
-        coordinate={{ latitude:  36.07, longitude: -94.1655 }}
-       />
+        
       </MapView>
       {/* Sibling View for button */}
       <View 
@@ -59,12 +66,37 @@ export default class MapScreen extends Component {
           alignSelf: 'flex-end'
         }}
       >
-        <Button title="Button" color="#f194ff" backgroundColor="#0000FF"/>
+        <Button title="Button" color="#f194ff" backgroundColor="#0000FF" 
+                onPress={()=> {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}
+        />
+        <Modal 
+          animationType="slide"
+          transparent={true}
+          visible={this.state.modalVisible}>
+          <View
+            style={{
+              top: '5%',
+              alignSelf: 'flex-end'
+            }}>
+            <Text>Hello World!</Text>
+            <Button 
+              onPress={() => {
+                this.setModalVisible(!this.state.modalVisible);
+              }}
+              title="Hide Modal"
+            />
+          </View>
+        </Modal>
+          
+      
       </View>
     </View>
     );
     }
 }
+
 
 MapScreen.navigationOptions = {
   title: 'Maps',
