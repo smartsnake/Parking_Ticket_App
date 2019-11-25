@@ -6,7 +6,9 @@ import {
   Text,
   ScrollView,
   ActivityIndicator,
-  Alert
+  Alert,
+  Modal,
+  TouchableHighlight
 } from 'react-native';
 
 import MapView from 'react-native-map-clustering';
@@ -25,7 +27,12 @@ export default class MapScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: true };
+    this.state = { isLoading: true,
+    modalVisible: false };
+  }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
 
   componentDidMount() {
@@ -74,6 +81,37 @@ export default class MapScreen extends Component {
           );
         })}
       </MapView>
+
+      <View style={{marginTop: 22}}>
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{marginTop: 22}}>
+            <View>
+              <InportForm/>
+
+              <TouchableHighlight
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Hide Modal</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+        </Modal>
+
+        <TouchableHighlight
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+          <Text>Show Modal</Text>
+        </TouchableHighlight>
+      </View>
+
         <View 
           style={{
             position: 'absolute',
@@ -102,7 +140,7 @@ export default class MapScreen extends Component {
               borderRadius:25,
               
             }}
-            onPress = {() => navigate('InportForm')}/>
+            onPress = {() => this.setModalVisible(true)}/>
         </View>
       </View>
     );
