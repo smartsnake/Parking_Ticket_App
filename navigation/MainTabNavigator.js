@@ -6,6 +6,7 @@ import TabBarIcon from '../components/TabBarIcon';
 import HomeScreen from '../screens/HomeScreen';
 import MapScreen from '../screens/MapScreen';
 import SettingsScreen from '../screens/SettingsScreen';
+import InportForm from '../screens/form2';
 
 //sets configurations for cross-platform app
 const config = Platform.select({
@@ -76,6 +77,18 @@ SettingsStack.navigationOptions = {
 };
 
 SettingsStack.path = '';
+
+const InportFormStack = createStackNavigator(
+  {
+    InputForm: InportForm
+  },
+  config
+);
+
+InportFormStack.navigationOptions = {
+  tabBarLabel: "Input Form",
+}
+InportFormStack.path = '';
 
 //tabNavigator is created with 3 tabs representing home, map, and settings page
 const tabNavigator = createBottomTabNavigator({

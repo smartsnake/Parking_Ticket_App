@@ -27,7 +27,11 @@
     "react-native-map-clustering": "^2.0.2",
     "react-native-maps": "git+https://github.com/pjamrozowicz/react-native-maps.git",
     "react-native-web": "^0.11.7",
-    "react-navigation": "^3.12.0"
+    "react-navigation": "^3.12.0",
+    "@material-ui/core": "4.7.0",
+    "react-native-elements": "1.2.7",
+    "react-native-vector-icons": "6.6.0",
+    "tcomb-form-native": "0.6.20"
   },
   "devDependencies": {
     "babel-preset-expo": "^7.0.0",
