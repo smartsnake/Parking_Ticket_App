@@ -69,3 +69,8 @@ The only folders that we need to focus on is the 'navigation' and 'screens' fold
     This screen displays a map over the University of Arkansas currently.
 
     * SettingsScreen.js - This screen was auto generated, should be changed to something useful later.
+
+## Known bugs
+
+1. Date and Time options will not display correctly on IOS 13 if Dark Mode is enable.
+    * For now, make sure Dark Mode is disable.        

@@ -6,14 +6,19 @@ import {
   Text,
   ScrollView,
   ActivityIndicator,
-  Button,
   Alert,
-  Modal
+  Modal,
+  TouchableHighlight
 } from 'react-native';
 
 import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+import InportForm from './form2';
 
 export default class MapScreen extends Component {
 
@@ -29,8 +34,14 @@ export default class MapScreen extends Component {
   constructor(props) {
     super(props);
     this.state = { isLoading: true,
-                  modalVisible: false };
+    modalVisible: false };
   }
+
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
+
+
 
   componentDidMount() {
     return fetch("http://maincomputer.myvnc.com:8081/points/")
@@ -55,7 +66,7 @@ export default class MapScreen extends Component {
         </View>
       );
     }
-
+    const {navigate} = this.props.navigation;
     return (
       <View style={{ flex: 1 }}>
       <MapView
@@ -78,39 +89,69 @@ export default class MapScreen extends Component {
           );
         })}
       </MapView>
-      <View 
-        style={{
-          position: 'absolute',
-          top: '2.5%',
-          alignSelf: 'flex-end'
-        }}
-      >
-        <Button title="Button" color="#f194ff" backgroundColor="#0000FF" 
-                onPress={()=> {
-                  this.setModalVisible(!this.state.modalVisible);
-                }}
-        />
-        <Modal 
+
+      <View style={{marginTop: 22}}>
+        <Modal
           animationType="slide"
           transparent={false}
-          visible={this.state.modalVisible}>
-          <View
-            style={{
-              top: '5%',
-              alignSelf: 'flex-end'
-            }}>
-            <Text>Hello World!</Text>
-            <Button 
-              onPress={() => {
-                this.setModalVisible(!this.state.modalVisible);
-              }}
-              title="Hide Modal"
-            />
+          visible={this.state.modalVisible}
+          onRequestClose={() => {
+            Alert.alert('Modal has been closed.');
+          }}>
+          <View style={{marginTop: 22}}>
+            <View>
+              
+              <InportForm/>
+
+              <TouchableHighlight
+              style={{paddingLeft: 10}}
+                onPress={() => {
+                  this.setModalVisible(!this.state.modalVisible);
+                }}>
+                <Text>Cancel</Text>
+              </TouchableHighlight>
+            </View>
           </View>
         </Modal>
-          
-      
+
+        <TouchableHighlight
+          onPress={() => {
+            this.setModalVisible(true);
+          }}>
+          <Text>Show Modal</Text>
+        </TouchableHighlight>
       </View>
+
+        <View 
+          style={{
+            position: 'absolute',
+            bottom: '2.5%',
+            right: '2.5%',
+            alignSelf: 'flex-end'
+          }}
+        >
+          <Button
+          type="clear" 
+          icon={
+            <Icon
+              name= "plus-circle"
+              size= {35}
+              color= "#ffffff"
+            />
+            }
+            style={{
+              borderWidth:1,
+              borderColor:'rgba(0,0,0,0.2)',
+              alignItems:'center',
+              justifyContent:'center',
+              width:50,
+              height:50,
+              backgroundColor:'#2f95dc',
+              borderRadius:25,
+              
+            }}
+            onPress = {() => this.setModalVisible(true)}/>
+        </View>
       </View>
     );
   }
