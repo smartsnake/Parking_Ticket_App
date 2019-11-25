@@ -35,6 +35,8 @@ export default class MapScreen extends Component {
     this.setState({modalVisible: visible});
   }
 
+
+
   componentDidMount() {
     return fetch("http://maincomputer.myvnc.com:8081/points/")
       .then(response => response.json())
@@ -92,6 +94,7 @@ export default class MapScreen extends Component {
           }}>
           <View style={{marginTop: 22}}>
             <View>
+              
               <InportForm/>
 
               <TouchableHighlight

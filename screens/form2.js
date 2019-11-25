@@ -7,17 +7,29 @@ import {
   ScrollView,
   ActivityIndicator,
   Button,
-  Alert
+  Alert,
+  DatePickerIOS
 } from 'react-native';
 import t from 'tcomb-form-native';
 
 const Form = t.form.Form;
 
+var options = {
+  fields: {
+    date: {
+      mode: 'date' // display the Date field as a DatePickerAndroid
+    },
+    time:{
+      mode: 'time'
+    }
+  }
+};
+
 const pointForm = t.struct({
   latitude: t.Number,
   longitude: t.Number,
-  date: t.String,
-  time: t.String
+  date: t.Date,
+  time: t.Date
 });
 
 export default class InportForm extends Component {
@@ -31,7 +43,8 @@ export default class InportForm extends Component {
       // <input type="submit" value="Submit">
       // </form>   
       <View>
-        <Form type={pointForm} />
+        <Form type={pointForm} options={options} />
+        
       </View>
     );
   }
