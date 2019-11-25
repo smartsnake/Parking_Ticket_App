@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Platform,
   StyleSheet,
   View,
   Text,
   ScrollView,
+  ActivityIndicator,
   Button,
   Alert,
   Modal
@@ -29,36 +30,57 @@ export default class MapScreen extends Component {
     this.setState({ region });
   }
 
-  //This generates the UI itself, creating a MapView with a region centered 
-  //around the latitude and longitude coordinates
+  constructor(props) {
+    super(props);
+    this.state = { isLoading: true };
+  }
+
+  componentDidMount() {
+    return fetch("http://maincomputer.myvnc.com:8081/points/")
+      .then(response => response.json())
+      .then(responseJson => {
+        //alert(responseJson); //test to show I am fetching the right information, still don't know how to get lat, long from responseJson to put into markers
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   render() {
-    return(
-    <View style={{ flex: 1 }}>
-      <MapView  
-        //Initial Region, thinking about changing to initialRegion
-        region={{  
-          latitude: 36.0654,  
-          longitude: -94.1723,  
-          //Delta represents zoom
-          latitudeDelta: 0.01,  
-          longitudeDelta: 0.01  
-        }}  
-        style={{ 
-          width: 400, height: 800,
-          flex: 1
-        }}  
-        showsUserLocation={true} //need to add key in info.plist (idk what this is)
-        followsUserLocation={true}
+    if (this.state.isLoading) {
+      return (
+        <View>
+          <ActivityIndicator />
+        </View>
+      );
+    }
+
+    return (
+      <View style={{ flex: 1 }}>
+      <MapView
+        region={{
+          latitude: 36.05,
+          longitude: -94.172,
+          latitudeDelta: 0.20,
+          longitudeDelta: 0.20
+        }}
+        style={{ width: 400, height: 800 }}
+        showsUserLocation={true}
         provider={"google"}
-        mapType="standard" //other values: hybrid, terrain (android only), standard, mutedStandard(ios 11+ only)
-      > 
-       {/* Default markers already put in place upon launch */ }
-        <Marker coordinate={{ latitude: 36.0822, longitude: -94.2 }} /> 
-        <Marker coordinate={{ latitude: 36.0654, longitude: -94.1723}} /> 
-       {/* Test for clickable markers */}
-        
+      >
+        {this.state.dataSource.map(obj => {
+          return (
+            <Marker
+              key={obj}
+              coordinate={{ latitude: obj.lat, longitude: obj.lon }}
+            />
+          );
+        })}
       </MapView>
-      {/* Sibling View for button */}
       <View 
         style={{
           position: 'absolute',
@@ -92,20 +114,20 @@ export default class MapScreen extends Component {
           
       
       </View>
-    </View>
+      </View>
     );
-    }
+  }
 }
 
 
 MapScreen.navigationOptions = {
-  title: 'Maps',
+  title: "Maps"
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 15,
-    backgroundColor: '#fff',
-  },
+    backgroundColor: "#fff"
+  }
 });
