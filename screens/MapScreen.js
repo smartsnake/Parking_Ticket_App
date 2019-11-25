@@ -13,7 +13,6 @@ import {
 
 import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
