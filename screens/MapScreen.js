@@ -13,6 +13,7 @@ import {
 
 import MapView from 'react-native-map-clustering';
 import { Marker } from 'react-native-maps';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 import { Button } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
@@ -21,6 +22,11 @@ import InportForm from './form2';
 
 export default class MapScreen extends Component {
 
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
+  }
+
+  //onRegionChange tracks map position as the user scrolls and zooms
   onRegionChange(region) {
     this.setState({ region });
   }
@@ -65,10 +71,10 @@ export default class MapScreen extends Component {
       <View style={{ flex: 1 }}>
       <MapView
         region={{
-          latitude: 36.05,
-          longitude: -94.172,
-          latitudeDelta: 0.20,
-          longitudeDelta: 0.20
+          latitude: 36.063,
+          longitude: -94.1743,
+          latitudeDelta: 0.012,
+          longitudeDelta: 0.012
         }}
         style={{ width: 400, height: 800 }}
         showsUserLocation={true}
@@ -150,6 +156,7 @@ export default class MapScreen extends Component {
     );
   }
 }
+
 
 MapScreen.navigationOptions = {
   title: "Maps"
