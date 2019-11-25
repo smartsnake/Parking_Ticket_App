@@ -98,10 +98,11 @@ export default class MapScreen extends Component {
               <InportForm/>
 
               <TouchableHighlight
+              style={{paddingLeft: 10}}
                 onPress={() => {
                   this.setModalVisible(!this.state.modalVisible);
                 }}>
-                <Text>Hide Modal</Text>
+                <Text>Cancel</Text>
               </TouchableHighlight>
             </View>
           </View>

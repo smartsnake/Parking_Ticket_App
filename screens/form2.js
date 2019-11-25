@@ -6,10 +6,11 @@ import {
   Text,
   ScrollView,
   ActivityIndicator,
-  Button,
-  Alert,
-  DatePickerIOS
+
 } from 'react-native';
+
+import { Button } from 'react-native-elements';
+
 import t from 'tcomb-form-native';
 
 const Form = t.form.Form;
@@ -25,6 +26,7 @@ var options = {
   }
 };
 
+
 const pointForm = t.struct({
   latitude: t.Number,
   longitude: t.Number,
@@ -32,8 +34,24 @@ const pointForm = t.struct({
   time: t.Date
 });
 
-export default class InportForm extends Component {
+
+
+export default class InportForm extends Component<Props, State> {
+
+  constructor(props: Props){
+    super(props);
+    this.state = {
+      modalVisible: true,
+    }
+  }
+
+  setModalVisible=(visible) => {
+    this.setState({modalVisible: visible});
+  }
+
+
   render() {
+    
     return(
       // <form name="myForm" action="" onsubmit="" method="post">
       // latitude: <input type="text" name="latitude" value="latitude"><br>
@@ -42,9 +60,18 @@ export default class InportForm extends Component {
       // time: <input type="time" name="time" value="time"><br>
       // <input type="submit" value="Submit">
       // </form>   
-      <View>
+
+      
+
+      <View style={{paddingTop: 20}}>
         <Form type={pointForm} options={options} />
-        
+        <Button
+          title="Submit"
+          type="solid"
+          onPress={() => {
+            setModalVisible(!this.state.modalVisible);
+          }}
+        />
       </View>
     );
   }
