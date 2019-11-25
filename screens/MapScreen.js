@@ -17,10 +17,6 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default class MapScreen extends Component {
 
-  state = {
-    modalVisible: false,
-  };
-
   setModalVisible(visible) {
     this.setState({modalVisible: visible});
   }
@@ -32,7 +28,8 @@ export default class MapScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: true };
+    this.state = { isLoading: true,
+                  modalVisible: false };
   }
 
   componentDidMount() {
@@ -63,10 +60,10 @@ export default class MapScreen extends Component {
       <View style={{ flex: 1 }}>
       <MapView
         region={{
-          latitude: 36.05,
-          longitude: -94.172,
-          latitudeDelta: 0.20,
-          longitudeDelta: 0.20
+          latitude: 36.063,
+          longitude: -94.1743,
+          latitudeDelta: 0.012,
+          longitudeDelta: 0.012
         }}
         style={{ width: 400, height: 800 }}
         showsUserLocation={true}
@@ -95,7 +92,7 @@ export default class MapScreen extends Component {
         />
         <Modal 
           animationType="slide"
-          transparent={true}
+          transparent={false}
           visible={this.state.modalVisible}>
           <View
             style={{
