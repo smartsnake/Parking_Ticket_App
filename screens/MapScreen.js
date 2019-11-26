@@ -94,6 +94,7 @@ export default class MapScreen extends Component {
           animationType="slide"
           transparent={false}
           visible={this.state.modalVisible}
+          presentationStyle="formSheet"
           onRequestClose={() => {
             Alert.alert('Modal has been closed.');
           }}>
@@ -112,13 +113,6 @@ export default class MapScreen extends Component {
             </View>
           </View>
         </Modal>
-
-        <TouchableHighlight
-          onPress={() => {
-            this.setModalVisible(true);
-          }}>
-          <Text>Show Modal</Text>
-        </TouchableHighlight>
       </View>
 
         <View 
@@ -147,9 +141,8 @@ export default class MapScreen extends Component {
               height:50,
               backgroundColor:'#2f95dc',
               borderRadius:25,
-              
             }}
-            onPress = {() => this.setModalVisible(true)}/>
+            onPress = {() => this.setModalVisible(!this.state.modalVisible)}/>
         </View>
       </View>
     );

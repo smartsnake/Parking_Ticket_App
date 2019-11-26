@@ -64,7 +64,7 @@ export default class InportForm extends Component<Props, State> {
       
 
       <View style={{paddingTop: 20}}>
-        <Form type={pointForm} options={options} />
+        <Form type={pointForm} options={options}/>
         <Button
           title="Submit"
           type="solid"
