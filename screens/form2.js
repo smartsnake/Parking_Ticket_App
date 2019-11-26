@@ -70,6 +70,7 @@ export default class InportForm extends Component<Props, State> {
               //lon is hard coded as I can't type negative numbers in form
               //time is just set at 1 for testing, will work on converting to epoch
               //once I can figure out how to actually get data from form
+              //testing point: 36.061141, -94.179373
               body: JSON.stringify({
                 lat: pointForm.latitude,
                 lon: -94.179311,
