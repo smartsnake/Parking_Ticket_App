@@ -55,7 +55,7 @@ export default class InportForm extends Component<Props, State> {
       // </form>
 
       <View style={{ paddingTop: 20 }}>
-        <Form type={pointForm} options={options} />
+        <Form type={pointForm} options={options} ref="form" />
         <Button
           title="Submit"
           type="solid"
@@ -66,13 +66,12 @@ export default class InportForm extends Component<Props, State> {
                 Accept: "application/json",
                 "Content-Type": "application/json"
               },
-              //lat currently does not work, is posting 0.0 to server
               //lon is hard coded as I can't type negative numbers in form
               //time is just set at 1 for testing, will work on converting to epoch
               //once I can figure out how to actually get data from form
               //testing point: 36.061141, -94.179373
               body: JSON.stringify({
-                lat: pointForm.latitude,
+                lat: this.refs.form.getComponent("latitude").getValue(),
                 lon: -94.179311,
                 time: 1
               })
