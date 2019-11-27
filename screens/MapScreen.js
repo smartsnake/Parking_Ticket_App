@@ -16,8 +16,29 @@ import { Marker } from "react-native-maps";
 
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
+import t from "tcomb-form-native";
 
-import InportForm from "./form2";
+//import InportForm from "./form2";
+
+const Form = t.form.Form;
+
+var options = {
+  fields: {
+    date: {
+      mode: "date" // display the Date field as a DatePickerAndroid
+    },
+    time: {
+      mode: "time"
+    }
+  }
+};
+
+const pointForm = t.struct({
+  latitude: t.Number,
+  longitude: t.Number,
+  date: t.Date,
+  time: t.Date
+});
 
 export default class MapScreen extends Component {
   setModalVisible(visible) {
@@ -39,6 +60,20 @@ export default class MapScreen extends Component {
   }
 
   componentDidMount() {
+    return fetch("http://maincomputer.myvnc.com:8081/points/")
+      .then(response => response.json())
+      .then(responseJson => {
+        this.setState({
+          isLoading: false,
+          dataSource: responseJson
+        });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  fetchMarkers() {
     return fetch("http://maincomputer.myvnc.com:8081/points/")
       .then(response => response.json())
       .then(responseJson => {
@@ -95,7 +130,35 @@ export default class MapScreen extends Component {
           >
             <View style={{ marginTop: 22 }}>
               <View>
-                <InportForm />
+                <View style={{ paddingTop: 20 }}>
+                  <Form type={pointForm} options={options} ref="form" />
+                  <Button
+                    title="Submit"
+                    type="solid"
+                    onPress={() => {
+                      fetch("http://maincomputer.myvnc.com:8081/point/", {
+                        method: "POST",
+                        headers: {
+                          Accept: "application/json",
+                          "Content-Type": "application/json"
+                        },
+                        //lon*-1 since can't type negative numbers
+                        //time is just set at 1 for testing
+                        body: JSON.stringify({
+                          lat: this.refs.form
+                            .getComponent("latitude")
+                            .getValue(),
+                          lon:
+                            this.refs.form
+                              .getComponent("longitude")
+                              .getValue() * -1,
+                          time: 1
+                        })
+                      });
+                      this.fetchMarkers();
+                    }}
+                  />
+                </View>
 
                 <TouchableHighlight
                   style={{ paddingLeft: 10 }}
