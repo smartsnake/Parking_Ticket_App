@@ -155,9 +155,8 @@ export default class MapScreen extends Component {
                           time: 1
                         })
                       });
-                      this.fetchMarkers();
+                      this.fetchMarkers(); //i'm expecting this to get new data from server which changes state causing render() to be called again
                       this.setModalVisible(!this.state.modalVisible); //on submission of form go back to map
-                      this.forceUpdate();
                     }}
                   />
                 </View>
