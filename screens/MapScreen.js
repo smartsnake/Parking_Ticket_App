@@ -156,6 +156,7 @@ export default class MapScreen extends Component {
                         })
                       });
                       this.fetchMarkers();
+                      this.setModalVisible(!this.state.modalVisible); //on submission of form go back to map
                     }}
                   />
                 </View>
