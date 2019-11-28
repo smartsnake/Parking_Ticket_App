@@ -138,10 +138,10 @@ export default class MapScreen extends Component {
                     onPress={() => {
 
                       console.log(JSON.stringify({
-                        lat: parseInt(this.refs.form
+                        lat: parseFloat(this.refs.form
                           .getComponent("latitude")
                           .getValue() , 10 ) + 1,
-                        lon: parseInt(this.refs.form
+                        lon: parseFloat(this.refs.form
                           .getComponent("longitude")
                           .getValue() , 10 ) + 1,
                         time: 1
@@ -155,30 +155,30 @@ export default class MapScreen extends Component {
                         },
                         
                         body: JSON.stringify({
-                          lat: parseInt(this.refs.form
+                          lat: parseFloat(this.refs.form
                             .getComponent("latitude")
                             .getValue() , 10 ) + 1,
-                          lon: parseInt(this.refs.form
+                          lon: parseFloat(this.refs.form
                             .getComponent("longitude")
                             .getValue() , 10 ) + 1,
                           time: 1
                         })
                       });
-                      //this.fetchMarkers(); //i'm expecting this to get new data from server which changes state causing render() to be called again
+                      this.fetchMarkers(); //i'm expecting this to get new data from server which changes state causing render() to be called again
                       this.setModalVisible(!this.state.modalVisible); //on submission of form go back to map
-                      return (
-                        <Marker
-                          coordinate={{
-                            latitude: this.refs.form
-                              .getComponent("latitude")
-                              .getValue(),
-                            longitude:
-                              this.refs.form
-                                .getComponent("longitude")
-                                .getValue() * -1
-                          }}
-                        />
-                      );
+                      // return (
+                      //   <Marker
+                      //     coordinate={{
+                      //       latitude: this.refs.form
+                      //         .getComponent("latitude")
+                      //         .getValue(),
+                      //       longitude:
+                      //         this.refs.form
+                      //           .getComponent("longitude")
+                      //           .getValue() * -1
+                      //     }}
+                      //   />
+                      // );
                     }}
                   />
                 </View>
