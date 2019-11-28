@@ -9,7 +9,7 @@ import {
 
 import { ExpoConfigView } from '@expo/samples';
 import { Button } from 'react-native-elements';
-import { MapScreen } from './MapScreen.js'
+import { MapScreen } from './MapScreen'
 
 export default class SettingsScreen extends Component {
   constructor(props) {
@@ -21,6 +21,15 @@ export default class SettingsScreen extends Component {
 
   toggleSwitch = (value) => {
     this.setState({switchValue: value})
+    if (value == true) {
+      MapScreen.setState({
+        mapType: "satellite"
+      })
+    } else {
+      MapScreen.setState({
+        mapType: "standard"
+      })
+    }
   }
   
   render() {

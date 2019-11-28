@@ -11,6 +11,8 @@ import {
   TouchableHighlight
 } from "react-native";
 
+import Draggable from 'react-draggable';
+
 import MapView from "react-native-map-clustering";
 import { Marker } from "react-native-maps";
 
@@ -45,6 +47,12 @@ export default class MapScreen extends Component {
       uniqueValue: 1,
       mapType: "standard",
     };
+  }
+
+  setMapType(type) {
+    this.setState({
+      mapType: type,
+    })
   }
 
   setModalVisible(visible) {
@@ -125,6 +133,12 @@ export default class MapScreen extends Component {
               />
             );
           })}
+          <Marker
+            coordinate={{latitude: 30.063, longitude: -90.1743}}
+            onDrag={() => console.log('onDrag', arguments)}
+            onDragStart={() => console.log('onDragStart', arguments)}
+            draggable
+          />
         </MapView>
 
         <View style={{ marginTop: 22 }}>
@@ -134,7 +148,7 @@ export default class MapScreen extends Component {
             visible={this.state.modalVisible}
             presentationStyle="pageSheet"
             onDismiss={() => {
-                    this.setModalVisible(!this.state.modalVisible);
+                    this.setModalVisible(false);
                   }}
           >
             <View style={{ marginTop: 22 }}>
