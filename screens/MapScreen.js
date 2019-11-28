@@ -52,8 +52,16 @@ export default class MapScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: true, modalVisible: false };
+    this.state = { isLoading: true,
+       modalVisible: false,
+       uniqueValue: 1 };
   }
+
+  forceRemount() {
+    var uv = this.state.uniqueValue;
+    this.setState({uniqueValue: uv+1});
+  }
+  
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
@@ -153,32 +161,31 @@ export default class MapScreen extends Component {
                           Accept: "application/json",
                           "Content-Type": "application/json"
                         },
-                        
                         body: JSON.stringify({
                           lat: parseFloat(this.refs.form
                             .getComponent("latitude")
-                            .getValue() , 10 ) + 1,
+                            .getValue() , 10 ),
                           lon: parseFloat(this.refs.form
                             .getComponent("longitude")
-                            .getValue() , 10 ) + 1,
+                            .getValue() , 10 ),
                           time: 1
                         })
-                      });
+                      }).then(response => console.log('Server Responce Code: ' + response.status));
                       this.fetchMarkers(); //i'm expecting this to get new data from server which changes state causing render() to be called again
                       this.setModalVisible(!this.state.modalVisible); //on submission of form go back to map
-                      // return (
-                      //   <Marker
-                      //     coordinate={{
-                      //       latitude: this.refs.form
-                      //         .getComponent("latitude")
-                      //         .getValue(),
-                      //       longitude:
-                      //         this.refs.form
-                      //           .getComponent("longitude")
-                      //           .getValue() * -1
-                      //     }}
-                      //   />
-                      // );
+                      this.forceRemount()
+                      return (
+                        <Marker
+                          coordinate={{
+                            latitude: parseFloat(this.refs.form
+                              .getComponent("latitude")
+                              .getValue() , 10 ),
+                            longitude: parseFloat(this.refs.form
+                              .getComponent("longitude")
+                              .getValue() , 10 )
+                          }}
+                        />
+                      );
                     }}
                   />
                 </View>
