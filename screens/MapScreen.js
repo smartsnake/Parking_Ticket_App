@@ -17,6 +17,7 @@ import { Marker } from "react-native-maps";
 import { Button } from "react-native-elements";
 import Icon from "react-native-vector-icons/FontAwesome";
 import t from "tcomb-form-native";
+import { objectMethod } from "@babel/types";
 
 //import InportForm from "./form2";
 
@@ -115,6 +116,17 @@ export default class MapScreen extends Component {
               <Marker
                 key={obj}
                 coordinate={{ latitude: obj.lat, longitude: obj.lon }}
+                onPress={() => {
+                  var date = new Date(obj.time);
+                  alert(
+                    "Parking Ticket Information\nLocation: (" +
+                      obj.lat +
+                      ", " +
+                      obj.lon +
+                      ")\nDate and Time: " +
+                      date
+                  );
+                }}
               />
             );
           })}
@@ -210,6 +222,28 @@ export default class MapScreen extends Component {
                                 .getValue(),
                               10
                             )
+                          }}
+                          onPress={() => {
+                            alert(
+                              "Parking Ticket Information\nLocation: (" +
+                                parseFloat(
+                                  this.refs.form
+                                    .getComponent("latitude")
+                                    .getValue(),
+                                  10
+                                ) +
+                                ", " +
+                                parseFloat(
+                                  this.refs.form
+                                    .getComponent("longitude")
+                                    .getValue(),
+                                  10
+                                ) +
+                                ")\nDate and Time: " +
+                                this.refs.form
+                                  .getComponent("date time")
+                                  .getValue()
+                            );
                           }}
                         />
                       );
