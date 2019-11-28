@@ -24,11 +24,8 @@ const Form = t.form.Form;
 
 var options = {
   fields: {
-    date: {
-      mode: "date" // display the Date field as a DatePickerAndroid
-    },
-    time: {
-      mode: "time"
+    datetime: {
+      mode: "datetime"
     }
   }
 };
@@ -36,8 +33,7 @@ var options = {
 const pointForm = t.struct({
   latitude: t.String,
   longitude: t.String,
-  date: t.Date,
-  time: t.Date
+  "date time": t.Date
 });
 
 export default class MapScreen extends Component {
@@ -154,6 +150,9 @@ export default class MapScreen extends Component {
                           .getValue() , 10 ) + 1,
                         time: 1
                       }))
+
+
+                      console.log("date and time: " + this.refs.form.getComponent("date time").getValue());
 
                       fetch("http://maincomputer.myvnc.com:8081/point/", {
                         method: "POST",
