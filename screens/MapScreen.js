@@ -155,8 +155,21 @@ export default class MapScreen extends Component {
                           time: 1
                         })
                       });
-                      this.fetchMarkers(); //i'm expecting this to get new data from server which changes state causing render() to be called again
+                      //this.fetchMarkers(); //i'm expecting this to get new data from server which changes state causing render() to be called again
                       this.setModalVisible(!this.state.modalVisible); //on submission of form go back to map
+                      return (
+                        <Marker
+                          coordinate={{
+                            latitude: this.refs.form
+                              .getComponent("latitude")
+                              .getValue(),
+                            longitude:
+                              this.refs.form
+                                .getComponent("longitude")
+                                .getValue() * -1
+                          }}
+                        />
+                      );
                     }}
                   />
                 </View>
