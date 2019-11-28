@@ -26,14 +26,12 @@ var options = {
   }
 };
 
-
 const pointForm = t.struct({
   latitude: t.Number,
   longitude: t.Number,
   date: t.Date,
   time: t.Date
 });
-
 
 
 export default class InportForm extends Component<Props, State> {
