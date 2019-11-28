@@ -8,7 +8,8 @@ import {
   ActivityIndicator,
   Alert,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  NativeEvent
 } from "react-native";
 
 import Draggable from 'react-draggable';
@@ -46,6 +47,13 @@ export default class MapScreen extends Component {
       modalVisible: false, 
       uniqueValue: 1,
       mapType: "standard",
+      marker: 
+        {
+          position: {
+            lati: 36.063,
+            longi: -94.1723
+          }
+        }
     };
   }
 
@@ -71,6 +79,17 @@ export default class MapScreen extends Component {
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
+  }
+
+  setMarkerCoordinate(latitude, longitude) {
+    console.log("Previous latitude" + this.state.marker.position.lati);
+    console.log("Previous longitude" + this.state.marker.position.longi);
+
+    this.state.marker.position.lati = latitude;
+    this.state.marker.position.longi = longitude;
+
+    console.log("New latitude" + this.state.marker.position.lati);
+    console.log("New longitude" + this.state.marker.position.longi);
   }
 
   componentDidMount() {
@@ -134,10 +153,14 @@ export default class MapScreen extends Component {
             );
           })}
           <Marker
-            coordinate={{latitude: 30.063, longitude: -90.1743}}
-            onDrag={() => console.log('onDrag', arguments)}
-            onDragStart={() => console.log('onDragStart', arguments)}
-            draggable
+            coordinate={{ latitude: this.state.marker.position.lati, 
+                          longitude: this.state.marker.position.longi,
+                        }}
+            draggable={true}
+            onDragEnd={(e) => {
+              this.setMarkerCoordinate(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)
+            }}
+            pinColor="#ffff00"
           />
         </MapView>
 
