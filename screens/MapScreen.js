@@ -48,16 +48,13 @@ export default class MapScreen extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { isLoading: true,
-       modalVisible: false,
-       uniqueValue: 1 };
+    this.state = { isLoading: true, modalVisible: false, uniqueValue: 1 };
   }
 
   forceRemount() {
     var uv = this.state.uniqueValue;
-    this.setState({uniqueValue: uv+1});
+    this.setState({ uniqueValue: uv + 1 });
   }
-  
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
@@ -140,19 +137,38 @@ export default class MapScreen extends Component {
                     title="Submit"
                     type="solid"
                     onPress={() => {
+                      console.log(
+                        JSON.stringify({
+                          lat:
+                            parseFloat(
+                              this.refs.form
+                                .getComponent("latitude")
+                                .getValue(),
+                              10
+                            ) + 1,
+                          lon:
+                            parseFloat(
+                              this.refs.form
+                                .getComponent("longitude")
+                                .getValue(),
+                              10
+                            ) + 1,
+                          time: Date.parse(
+                            this.refs.form.getComponent("date time").getValue()
+                          )
+                        })
+                      );
 
-                      console.log(JSON.stringify({
-                        lat: parseFloat(this.refs.form
-                          .getComponent("latitude")
-                          .getValue() , 10 ) + 1,
-                        lon: parseFloat(this.refs.form
-                          .getComponent("longitude")
-                          .getValue() , 10 ) + 1,
-                        time: 1
-                      }))
+                      console.log(
+                        "date and time: " +
+                          this.refs.form.getComponent("date time").getValue()
+                      );
 
-
-                      console.log("date and time: " + this.refs.form.getComponent("date time").getValue());
+                      console.log(
+                        Date.parse(
+                          this.refs.form.getComponent("date time").getValue()
+                        )
+                      );
 
                       fetch("http://maincomputer.myvnc.com:8081/point/", {
                         method: "POST",
@@ -161,27 +177,39 @@ export default class MapScreen extends Component {
                           "Content-Type": "application/json"
                         },
                         body: JSON.stringify({
-                          lat: parseFloat(this.refs.form
-                            .getComponent("latitude")
-                            .getValue() , 10 ),
-                          lon: parseFloat(this.refs.form
-                            .getComponent("longitude")
-                            .getValue() , 10 ),
-                          time: 1
+                          lat: parseFloat(
+                            this.refs.form.getComponent("latitude").getValue(),
+                            10
+                          ),
+                          lon: parseFloat(
+                            this.refs.form.getComponent("longitude").getValue(),
+                            10
+                          ),
+                          time: Date.parse(
+                            this.refs.form.getComponent("date time").getValue()
+                          )
                         })
-                      }).then(response => console.log('Server Responce Code: ' + response.status));
+                      }).then(response =>
+                        console.log("Server Responce Code: " + response.status)
+                      );
                       this.fetchMarkers(); //i'm expecting this to get new data from server which changes state causing render() to be called again
                       this.setModalVisible(!this.state.modalVisible); //on submission of form go back to map
-                      this.forceRemount()
+                      this.forceRemount();
                       return (
                         <Marker
                           coordinate={{
-                            latitude: parseFloat(this.refs.form
-                              .getComponent("latitude")
-                              .getValue() , 10 ),
-                            longitude: parseFloat(this.refs.form
-                              .getComponent("longitude")
-                              .getValue() , 10 )
+                            latitude: parseFloat(
+                              this.refs.form
+                                .getComponent("latitude")
+                                .getValue(),
+                              10
+                            ),
+                            longitude: parseFloat(
+                              this.refs.form
+                                .getComponent("longitude")
+                                .getValue(),
+                              10
+                            )
                           }}
                         />
                       );
