@@ -133,9 +133,9 @@ export default class MapScreen extends Component {
             transparent={false}
             visible={this.state.modalVisible}
             presentationStyle="pageSheet"
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
+            onDismiss={() => {
+                    this.setModalVisible(!this.state.modalVisible);
+                  }}
           >
             <View style={{ marginTop: 22 }}>
               <View>
