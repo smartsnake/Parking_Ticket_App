@@ -34,8 +34,8 @@ var options = {
 };
 
 const pointForm = t.struct({
-  latitude: t.Number,
-  longitude: t.Number,
+  latitude: t.String,
+  longitude: t.String,
   date: t.Date,
   time: t.Date
 });
@@ -136,22 +136,31 @@ export default class MapScreen extends Component {
                     title="Submit"
                     type="solid"
                     onPress={() => {
+
+                      console.log(JSON.stringify({
+                        lat: parseInt(this.refs.form
+                          .getComponent("latitude")
+                          .getValue() , 10 ) + 1,
+                        lon: parseInt(this.refs.form
+                          .getComponent("longitude")
+                          .getValue() , 10 ) + 1,
+                        time: 1
+                      }))
+
                       fetch("http://maincomputer.myvnc.com:8081/point/", {
                         method: "POST",
                         headers: {
                           Accept: "application/json",
                           "Content-Type": "application/json"
                         },
-                        //lon*-1 since can't type negative numbers
-                        //time is just set at 1 for testing
+                        
                         body: JSON.stringify({
-                          lat: this.refs.form
+                          lat: parseInt(this.refs.form
                             .getComponent("latitude")
-                            .getValue(),
-                          lon:
-                            this.refs.form
-                              .getComponent("longitude")
-                              .getValue() * -1,
+                            .getValue() , 10 ) + 1,
+                          lon: parseInt(this.refs.form
+                            .getComponent("longitude")
+                            .getValue() , 10 ) + 1,
                           time: 1
                         })
                       });
