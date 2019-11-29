@@ -117,7 +117,7 @@ export default class MapScreen extends Component {
                 key={obj}
                 coordinate={{ latitude: obj.lat, longitude: obj.lon }}
                 onPress={() => {
-                  var date = new Date(obj.time);
+                  var date = new Date(obj.time * 1000);
                   alert(
                     "Parking Ticket Information\nLocation: (" +
                       obj.lat +
@@ -151,23 +151,20 @@ export default class MapScreen extends Component {
                     onPress={() => {
                       console.log(
                         JSON.stringify({
-                          lat:
-                            parseFloat(
+                          lat: parseFloat(
+                            this.refs.form.getComponent("latitude").getValue(),
+                            10
+                          ),
+                          lon: parseFloat(
+                            this.refs.form.getComponent("longitude").getValue(),
+                            10
+                          ),
+                          time:
+                            Date.parse(
                               this.refs.form
-                                .getComponent("latitude")
-                                .getValue(),
-                              10
-                            ) + 1,
-                          lon:
-                            parseFloat(
-                              this.refs.form
-                                .getComponent("longitude")
-                                .getValue(),
-                              10
-                            ) + 1,
-                          time: Date.parse(
-                            this.refs.form.getComponent("date time").getValue()
-                          )
+                                .getComponent("date time")
+                                .getValue()
+                            ) / 1000
                         })
                       );
 
@@ -177,9 +174,11 @@ export default class MapScreen extends Component {
                       );
 
                       console.log(
-                        Date.parse(
-                          this.refs.form.getComponent("date time").getValue()
-                        )
+                        "unix time: " +
+                          Date.parse(
+                            this.refs.form.getComponent("date time").getValue()
+                          ) /
+                            1000
                       );
 
                       fetch("http://maincomputer.myvnc.com:8081/point/", {
@@ -197,16 +196,17 @@ export default class MapScreen extends Component {
                             this.refs.form.getComponent("longitude").getValue(),
                             10
                           ),
-                          time: Date.parse(
-                            this.refs.form.getComponent("date time").getValue()
-                          )
+                          time:
+                            Date.parse(
+                              this.refs.form
+                                .getComponent("date time")
+                                .getValue()
+                            ) / 1000
                         })
                       }).then(response =>
                         console.log("Server Responce Code: " + response.status)
                       );
-                      this.fetchMarkers(); //i'm expecting this to get new data from server which changes state causing render() to be called again
                       this.setModalVisible(!this.state.modalVisible); //on submission of form go back to map
-                      this.forceRemount();
                       return (
                         <Marker
                           coordinate={{
