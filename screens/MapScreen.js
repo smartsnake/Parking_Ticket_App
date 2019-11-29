@@ -117,7 +117,7 @@ export default class MapScreen extends Component {
                 key={obj}
                 coordinate={{ latitude: obj.lat, longitude: obj.lon }}
                 onPress={() => {
-                  var date = new Date(obj.time);
+                  var date = new Date(obj.time * 1000);
                   alert(
                     "Parking Ticket Information\nLocation: (" +
                       obj.lat +
