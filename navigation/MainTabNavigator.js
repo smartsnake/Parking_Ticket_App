@@ -80,12 +80,14 @@ SettingsStack.path = '';
 
 
 //tabNavigator is created with 3 tabs representing home, map, and settings page
-const tabNavigator = createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+const tabNavigator = createBottomTabNavigator(
+  {
+    HomeStack,
+    LinksStack,
+    SettingsStack,
+  }
+);
 
-tabNavigator.path = '';
+tabNavigator.path = ''; 
 
 export default tabNavigator;

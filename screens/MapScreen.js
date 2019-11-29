@@ -8,8 +8,11 @@ import {
   ActivityIndicator,
   Alert,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  NativeEvent
 } from "react-native";
+
+import Draggable from 'react-draggable';
 
 import MapView from "react-native-map-clustering";
 import { Marker } from "react-native-maps";
@@ -38,6 +41,29 @@ const pointForm = t.struct({
 });
 
 export default class MapScreen extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { 
+      isLoading: true, 
+      modalVisible: false, 
+      uniqueValue: 1,
+      mapType: "standard",
+      marker: 
+        {
+          position: {
+            lati: 36.063,
+            longi: -94.1723
+          }
+        }
+    };
+  }
+
+  setMapType(type) {
+    this.setState({
+      mapType: type,
+    })
+  }
+
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -47,11 +73,6 @@ export default class MapScreen extends Component {
     this.setState({ region });
   }
 
-  constructor(props) {
-    super(props);
-    this.state = { isLoading: true, modalVisible: false, uniqueValue: 1 };
-  }
-
   forceRemount() {
     var uv = this.state.uniqueValue;
     this.setState({ uniqueValue: uv + 1 });
@@ -59,6 +80,17 @@ export default class MapScreen extends Component {
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
+  }
+
+  setMarkerCoordinate(latitude, longitude) {
+    console.log("Previous latitude" + this.state.marker.position.lati);
+    console.log("Previous longitude" + this.state.marker.position.longi);
+
+    this.state.marker.position.lati = latitude;
+    this.state.marker.position.longi = longitude;
+
+    console.log("New latitude" + this.state.marker.position.lati);
+    console.log("New longitude" + this.state.marker.position.longi);
   }
 
   componentDidMount() {
@@ -98,6 +130,7 @@ export default class MapScreen extends Component {
       );
     }
     const { navigate } = this.props.navigation;
+
     return (
       <View style={{ flex: 1 }}>
         <MapView
@@ -105,11 +138,12 @@ export default class MapScreen extends Component {
             latitude: 36.063,
             longitude: -94.1743,
             latitudeDelta: 0.012,
-            longitudeDelta: 0.012
+            longitudeDelta: 0.012,
           }}
           style={{ width: 400, height: 800 }}
           showsUserLocation={true}
           provider={"google"}
+          mapType={this.state.mapType}
         >
           {this.state.dataSource.map(obj => {
             return (
@@ -130,6 +164,16 @@ export default class MapScreen extends Component {
               />
             );
           })}
+          <Marker
+            coordinate={{ latitude: this.state.marker.position.lati, 
+                          longitude: this.state.marker.position.longi,
+                        }}
+            draggable={true}
+            onDragEnd={(e) => {
+              this.setMarkerCoordinate(e.nativeEvent.coordinate.latitude, e.nativeEvent.coordinate.longitude)
+            }}
+            pinColor="#ffff00"
+          />
         </MapView>
 
         <View style={{ marginTop: 22 }}>
@@ -137,9 +181,10 @@ export default class MapScreen extends Component {
             animationType="slide"
             transparent={false}
             visible={this.state.modalVisible}
-            onRequestClose={() => {
-              Alert.alert("Modal has been closed.");
-            }}
+            presentationStyle="pageSheet"
+            onDismiss={() => {
+                    this.setModalVisible(false);
+                  }}
           >
             <View style={{ marginTop: 22 }}>
               <View>
@@ -262,14 +307,6 @@ export default class MapScreen extends Component {
               </View>
             </View>
           </Modal>
-
-          <TouchableHighlight
-            onPress={() => {
-              this.setModalVisible(true);
-            }}
-          >
-            <Text>Show Modal</Text>
-          </TouchableHighlight>
         </View>
 
         <View
@@ -293,7 +330,7 @@ export default class MapScreen extends Component {
               backgroundColor: "#2f95dc",
               borderRadius: 25
             }}
-            onPress={() => this.setModalVisible(true)}
+            onPress={() => this.setModalVisible(!this.state.modalVisible)}
           />
         </View>
       </View>
