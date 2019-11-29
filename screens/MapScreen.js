@@ -50,10 +50,9 @@ export default class MapScreen extends Component {
       mapType: "standard",
       marker: 
         {
-          position: {
-            lati: 36.063,
-            longi: -94.1723
-          }
+          latitude: "36.063",
+          longitude: "-94.1723",
+          "date time": new Date()
         }
     };
   }
@@ -83,14 +82,14 @@ export default class MapScreen extends Component {
   }
 
   setMarkerCoordinate(latitude, longitude) {
-    console.log("Previous latitude" + this.state.marker.position.lati);
-    console.log("Previous longitude" + this.state.marker.position.longi);
+    console.log("Previous latitude" + this.state.marker.latitude);
+    console.log("Previous longitude" + this.state.marker.longitude);
 
-    this.state.marker.position.lati = latitude;
-    this.state.marker.position.longi = longitude;
+    this.state.marker.latitude = latitude.toString();
+    this.state.marker.longitude = longitude.toString();
 
-    console.log("New latitude" + this.state.marker.position.lati);
-    console.log("New longitude" + this.state.marker.position.longi);
+    console.log("New latitude" + this.state.marker.latitude);
+    console.log("New longitude" + this.state.marker.longitude);
   }
 
   componentDidMount() {
@@ -165,8 +164,8 @@ export default class MapScreen extends Component {
             );
           })}
           <Marker
-            coordinate={{ latitude: this.state.marker.position.lati, 
-                          longitude: this.state.marker.position.longi,
+            coordinate={{ latitude: this.state.marker.latitude, 
+                          longitude: this.state.marker.longitude,
                         }}
             draggable={true}
             onDragEnd={(e) => {
@@ -189,7 +188,9 @@ export default class MapScreen extends Component {
             <View style={{ marginTop: 22 }}>
               <View>
                 <View style={{ paddingTop: 20 }}>
-                  <Form type={pointForm} options={options} ref="form" />
+
+                  <Form type={pointForm} options={options} value = {this.state.marker} ref="form" />
+
                   <Button
                     title="Submit"
                     type="solid"
