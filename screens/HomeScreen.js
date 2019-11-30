@@ -1,5 +1,4 @@
-import * as WebBrowser from 'expo-web-browser';
-import React from 'react';
+import React, { Component } from "react";
 import {
   Image,
   Platform,
@@ -8,162 +7,172 @@ import {
   Text,
   TouchableOpacity,
   View,
-} from 'react-native';
+  Dimensions
+} from "react-native";
 
-import { MonoText } from '../components/StyledText';
-import MapScreen from './MapScreen';
+import { MonoText } from "../components/StyledText";
+import MapScreen from "./MapScreen";
+import Swiper from "react-native-swiper";
 
-export default function HomeScreen() {
-  //Right now, this is returning the default homescreen. 
-  //We can remove most of this or completely remove homescreen, right now,
-  //Keep just to view template for working with react front end
-  return (
-    //View tag creates a "view" which can be nested inside other views
+const { width } = Dimensions.get("window");
 
-    //This is the parent view container
-    <View style={styles.container}>
-      <ScrollView
-        style={styles.container}
-        contentContainerStyle={styles.contentContainer}>
-        <View style={styles.getStartedContainer}>
-          {/* TO USE TEXT, MUST PASS IN TEXT TAG */}
-          <Text style={styles.welcomeText}>Welcome to the UARK Parking Ticket Application</Text>
-        </View> 
-      </ScrollView>
-    </View>
-  );
-  
-}
-
-HomeScreen.navigationOptions = {
-  header: null,
-};
-
-//Will most likely remove this function
-//Can use these functions in return by the usage of tag
-function DevelopmentModeNotice() {
-  if (__DEV__) {
-    const learnMoreButton = (
-      <Text onPress={handleLearnMorePress} style={styles.helpLinkText}>
-        Learn more
-      </Text>
-    );
-
+export default class HomeScreen extends Component {
+  render() {
     return (
-      <Text style={styles.developmentModeText}>
-        Development mode is enabled: your app will be slower but you can use
-        useful development tools. {learnMoreButton}
-      </Text>
-    );
-  } else {
-    return (
-      <Text style={styles.developmentModeText}>
-        You are not in development mode: your app will run at full speed.
-      </Text>
+      <Swiper
+        style={styles.wrapper}
+        //renderPagination={renderPagination}
+        loop={false}
+      >
+        <View style={styles.slide}>
+          <Image style={styles.image} source={require("./images/1.png")} />
+        </View>
+        <View style={styles.slide}>
+          <Image
+            style={styles.image}
+            source={require("./images/pleasework.png")}
+          />
+        </View>
+        <View style={styles.slide}>
+          <Image style={styles.image} source={require("./images/3.png")} />
+        </View>
+        <View style={styles.slide}>
+          <Image style={styles.image} source={require("./images/4.png")} />
+        </View>
+      </Swiper>
     );
   }
 }
 
-function handleLearnMorePress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/development-mode/'
-  );
-}
+HomeScreen.navigationOptions = {
+  header: null
+};
 
-function handleHelpPress() {
-  WebBrowser.openBrowserAsync(
-    'https://docs.expo.io/versions/latest/workflow/up-and-running/#cant-see-your-changes'
+const styles = {
+  wrapper: {},
+  slide: {
+    flex: 1,
+    justifyContent: "center",
+    backgroundColor: "transparent"
+  },
+  text: {
+    color: "#fff",
+    fontSize: 30,
+    fontWeight: "bold"
+  },
+  image: {
+    width,
+    flex: 1
+  },
+  paginationStyle: {
+    position: "absolute",
+    bottom: 10,
+    right: 10
+  },
+  paginationText: {
+    color: "white",
+    fontSize: 20
+  }
+};
+
+const renderPagination = (index, total, context) => {
+  return (
+    <View style={styles.paginationStyle}>
+      <Text style={{ color: "grey" }}>
+        <Text style={styles.paginationText}>{index + 1}</Text>/{total}
+      </Text>
+    </View>
   );
-}
+};
 
 //This is how styling is handled within React
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  developmentModeText: {
-    marginBottom: 20,
-    color: 'rgba(0,0,0,0.4)',
-    fontSize: 14,
-    lineHeight: 19,
-    textAlign: 'center',
-  },
-  contentContainer: {
-    paddingTop: 30,
-  },
-  welcomeContainer: {
-    alignItems: 'center',
-    marginTop: 10,
-    marginBottom: 20,
-  },
-  welcomeImage: {
-    width: 100,
-    height: 80,
-    resizeMode: 'contain',
-    marginTop: 3,
-    marginLeft: -10,
-  },
-  getStartedContainer: {
-    alignItems: 'center',
-    top: '25%',
-    marginHorizontal: 50,
-  },
-  homeScreenFilename: {
-    marginVertical: 7,
-  },
-  codeHighlightText: {
-    color: 'rgba(96,100,109, 0.8)',
-  },
-  codeHighlightContainer: {
-    backgroundColor: 'rgba(0,0,0,0.05)',
-    borderRadius: 3,
-    paddingHorizontal: 4,
-  },
-  welcomeText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    lineHeight: 24,
-    textAlign: 'center',
-    top: '0%'
-  },
-  tabBarInfoContainer: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    ...Platform.select({
-      ios: {
-        shadowColor: 'black',
-        shadowOffset: { width: 0, height: -3 },
-        shadowOpacity: 0.1,
-        shadowRadius: 3,
-      },
-      android: {
-        elevation: 20,
-      },
-    }),
-    alignItems: 'center',
-    backgroundColor: '#fbfbfb',
-    paddingVertical: 20,
-  },
-  tabBarInfoText: {
-    fontSize: 17,
-    color: 'rgba(96,100,109, 1)',
-    textAlign: 'center',
-  },
-  navigationFilename: {
-    marginTop: 5,
-  },
-  helpContainer: {
-    marginTop: 15,
-    alignItems: 'center',
-  },
-  helpLink: {
-    paddingVertical: 15,
-  },
-  helpLinkText: {
-    fontSize: 14,
-    color: '#2e78b7',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     backgroundColor: '#fff',
+//   },
+//   developmentModeText: {
+//     marginBottom: 20,
+//     color: 'rgba(0,0,0,0.4)',
+//     fontSize: 14,
+//     lineHeight: 19,
+//     textAlign: 'center',
+//   },
+//   contentContainer: {
+//     paddingTop: 30,
+//   },
+//   welcomeContainer: {
+//     alignItems: 'center',
+//     marginTop: 10,
+//     marginBottom: 20,
+//   },
+//   welcomeImage: {
+//     width: 100,
+//     height: 80,
+//     resizeMode: 'contain',
+//     marginTop: 3,
+//     marginLeft: -10,
+//   },
+//   getStartedContainer: {
+//     alignItems: 'center',
+//     top: '25%',
+//     marginHorizontal: 50,
+//   },
+//   homeScreenFilename: {
+//     marginVertical: 7,
+//   },
+//   codeHighlightText: {
+//     color: 'rgba(96,100,109, 0.8)',
+//   },
+//   codeHighlightContainer: {
+//     backgroundColor: 'rgba(0,0,0,0.05)',
+//     borderRadius: 3,
+//     paddingHorizontal: 4,
+//   },
+//   welcomeText: {
+//     fontSize: 17,
+//     color: 'rgba(96,100,109, 1)',
+//     lineHeight: 24,
+//     textAlign: 'center',
+//     top: '0%'
+//   },
+//   tabBarInfoContainer: {
+//     position: 'absolute',
+//     bottom: 0,
+//     left: 0,
+//     right: 0,
+//     ...Platform.select({
+//       ios: {
+//         shadowColor: 'black',
+//         shadowOffset: { width: 0, height: -3 },
+//         shadowOpacity: 0.1,
+//         shadowRadius: 3,
+//       },
+//       android: {
+//         elevation: 20,
+//       },
+//     }),
+//     alignItems: 'center',
+//     backgroundColor: '#fbfbfb',
+//     paddingVertical: 20,
+//   },
+//   tabBarInfoText: {
+//     fontSize: 17,
+//     color: 'rgba(96,100,109, 1)',
+//     textAlign: 'center',
+//   },
+//   navigationFilename: {
+//     marginTop: 5,
+//   },
+//   helpContainer: {
+//     marginTop: 15,
+//     alignItems: 'center',
+//   },
+//   helpLink: {
+//     paddingVertical: 15,
+//   },
+//   helpLinkText: {
+//     fontSize: 14,
+//     color: '#2e78b7',
+//   },
+// });
