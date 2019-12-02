@@ -164,8 +164,8 @@ export default class MapScreen extends Component {
             );
           })}
           <Marker
-            coordinate={{ latitude: this.state.marker.latitude, 
-                          longitude: this.state.marker.longitude,
+            coordinate={{ latitude: parseFloat(this.state.marker.latitude), 
+                          longitude: parseFloat(this.state.marker.longitude),
                         }}
             draggable={true}
             onDragEnd={(e) => {
@@ -319,6 +319,9 @@ export default class MapScreen extends Component {
           }}
         >
           <Button
+
+            ref={theButton => { this.theButton = theButton}}
+
             type="clear"
             icon={<Icon name="plus-circle" size={35} color="#ffffff" />}
             style={{

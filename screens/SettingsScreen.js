@@ -22,11 +22,11 @@ export default class SettingsScreen extends Component {
   toggleSwitch = (value) => {
     this.setState({switchValue: value})
     if (value == true) {
-      MapScreen.setState({
+      super.props.MapScreen.setState({
         mapType: "satellite"
       })
     } else {
-      MapScreen.setState({
+      super.props.MapScreen.setState({
         mapType: "standard"
       })
     }
